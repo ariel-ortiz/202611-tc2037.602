@@ -16,6 +16,16 @@
         (- f 32.0))
      9.0))
 
+; Probleam 3
+(defn sign
+  "Determines if n is positive (1), negative (-1) or zero (0)."
+  [n]
+  (if (< n 0)
+    -1
+    (if (> n 0)
+      1
+      0)))
+
 (deftest test-gibibytes->bytes
   (is (= 0 (gibibytes->bytes 0)))
   (is (= 1073741824 (gibibytes->bytes 1)))
@@ -26,5 +36,10 @@
   (is (= 100.0 (fahrenheit->celsius 212.0)))
   (is (= 0.0 (fahrenheit->celsius 32.0)))
   (is (= -40.0 (fahrenheit->celsius -40.0))))
+
+(deftest test-sign
+  (is (= -1 (sign -5)))
+  (is (= 1 (sign 10)))
+  (is (= 0 (sign 0))))
 
 (run-tests)
