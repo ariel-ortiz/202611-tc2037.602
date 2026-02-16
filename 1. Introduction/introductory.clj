@@ -20,9 +20,9 @@
 (defn sign
   "Determines if n is positive (1), negative (-1) or zero (0)."
   [n]
-  (if (< n 0)
+  (if (neg? n)
     -1
-    (if (> n 0)
+    (if (pos? n)
       1
       0)))
 
