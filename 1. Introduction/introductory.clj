@@ -20,11 +20,10 @@
 (defn sign
   "Determines if n is positive (1), negative (-1) or zero (0)."
   [n]
-  (if (neg? n)
-    -1
-    (if (pos? n)
-      1
-      0)))
+  (cond
+    (neg? n) -1
+    (pos? n) 1
+    :else 0))
 
 (deftest test-gibibytes->bytes
   (is (= 0 (gibibytes->bytes 0)))
