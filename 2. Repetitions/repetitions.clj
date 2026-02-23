@@ -70,12 +70,23 @@
 ; Problem 5
 
 ; Recursive solution
+;(defn fib
+;  [n]
+;  (if (<= n 1)
+;    n
+;    (+ (fib (- n 1))
+;       (fib (- n 2)))))
+
 (defn fib
   [n]
-  (if (<= n 1)
-    n
-    (+ (fib (- n 1))
-       (fib (- n 2)))))
+  (loop [a 0
+         b 1
+         i 0]
+    (if (= i n)
+      a
+      (recur b
+             (+' a b)
+             (inc i)))))
 
 (deftest test-enlist
   (is (= () (enlist ())))
