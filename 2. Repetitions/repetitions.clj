@@ -42,13 +42,25 @@
 ; Problem 4
 
 ; Recursive solution
+;(defn duplicate
+;  [s]
+;  (if (empty? s)
+;    ()
+;    (cons (first s)
+;          (cons (first s)
+;                (duplicate (rest s))))))
+
+; loop/recur solution
 (defn duplicate
   [s]
-  (if (empty? s)
-    ()
-    (cons (first s)
-          (cons (first s)
-                (duplicate (rest s))))))
+  (loop [s s
+         result []]
+    (if (empty? s)
+      (seq result)
+      (recur (rest s)
+             (conj (conj result
+                         (first s))
+                   (first s))))))
 
 (deftest test-enlist
   (is (= () (enlist ())))
