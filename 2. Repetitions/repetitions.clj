@@ -39,6 +39,17 @@
   [s]
   (reduce + (map sqr s)))
 
+; Problem 4
+
+; Recursive solution
+(defn duplicate
+  [s]
+  (if (empty? s)
+    ()
+    (cons (first s)
+          (cons (first s)
+                (duplicate (rest s))))))
+
 (deftest test-enlist
   (is (= () (enlist ())))
   (is (= '((a) (b) (c)) (enlist '(a b c))))
@@ -57,5 +68,16 @@
   (is (= 25 (add-squares [5])))
   (is (= 30 (add-squares [2 4 1 3])))
   (is (= 385 (add-squares [1 2 3 4 5 6 7 8 9 10]))))
+
+(deftest test-duplicate
+  (is (= [1 1 2 2 3 3 4 4 5 5]
+         (duplicate [1 2 3 4 5])))
+  (is (= ()
+         (duplicate ())))
+  (is (= '(a a)
+         (duplicate '(a))))
+  (is (= '(a a b b c c d d e e f f g g h h)
+         (duplicate '(a b c d e f g h)))))
+
 
 (run-tests)
