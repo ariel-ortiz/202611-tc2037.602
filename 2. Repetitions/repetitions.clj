@@ -51,16 +51,21 @@
 ;                (duplicate (rest s))))))
 
 ; loop/recur solution
+;(defn duplicate
+;  [s]
+;  (loop [s s
+;         result []]
+;    (if (empty? s)
+;      (seq result)
+;      (recur (rest s)
+;             (conj (conj result
+;                         (first s))
+;                   (first s))))))
+
+; Sequence API solution
 (defn duplicate
   [s]
-  (loop [s s
-         result []]
-    (if (empty? s)
-      (seq result)
-      (recur (rest s)
-             (conj (conj result
-                         (first s))
-                   (first s))))))
+  (interleave s s))
 
 (deftest test-enlist
   (is (= () (enlist ())))
