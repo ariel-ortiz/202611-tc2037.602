@@ -77,16 +77,29 @@
 ;    (+ (fib (- n 1))
 ;       (fib (- n 2)))))
 
+; loop/recur solution
+;(defn fib
+;  [n]
+;  (loop [a 0
+;         b 1
+;         i 0]
+;    (if (= i n)
+;      a
+;      (recur b
+;             (+' a b)
+;             (inc i)))))
+
+; Sequence API solution
 (defn fib
   [n]
-  (loop [a 0
-         b 1
-         i 0]
-    (if (= i n)
-      a
-      (recur b
-             (+' a b)
-             (inc i)))))
+  (first
+    (first
+      (drop n
+            (iterate (fn [param]
+                       (let [a (first param)
+                             b (second param)]
+                         [b (+' a b)]))
+                     [0 1])))))
 
 (deftest test-enlist
   (is (= () (enlist ())))
