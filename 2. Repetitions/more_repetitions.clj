@@ -37,6 +37,12 @@
             [n]
             (second split-result))))
 
+; Problem 3
+
+(defn insertion-sort
+  [s]
+  (reduce (fn [accum x] (insert x accum)) () s))
+
 (deftest test-expand
   (is (= () (expand ())))
   (is (= '(a) (expand '(a))))
@@ -49,5 +55,12 @@
   (is (= '(4 5 6 7 8) (insert 4 '(5 6 7 8))))
   (is (= '(1 3 5 6 7 9 16) (insert 5 '(1 3 6 7 9 16))))
   (is (= '(1 5 6 10) (insert 10 '(1 5 6)))))
+
+(deftest test-insertion-sort
+  (is (= () (insertion-sort ())))
+  (is (= '(0 1 3 3 4 6 7 8 9)
+         (insertion-sort '(4 3 6 8 3 0 9 1 7))))
+  (is (= '(1 2 3 4 5 6) (insertion-sort '(1 2 3 4 5 6))))
+  (is (= '(1 5 5 5 5 5 5) (insertion-sort '(5 5 5 1 5 5 5)))))
 
 (run-tests)
