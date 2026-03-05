@@ -104,6 +104,11 @@
              result
              (inc divisor)))))
 
+; Problem 10
+(defn pack
+  [s]
+  (partition-by identity s))
+
 (deftest test-expand
   (is (= () (expand ())))
   (is (= '(a) (expand '(a))))
@@ -135,5 +140,12 @@
   (is (= '(2 2 2 2 2 3) (prime-factors 96)))
   (is (= '(97) (prime-factors 97)))
   (is (= '(2 3 3 37) (prime-factors 666))))
+
+(deftest test-pack
+  (is (= () (pack ())))
+  (is (= '((a a a a) (b) (c c) (a a) (d) (e e e e))
+         (pack '(a a a a b c c a a d e e e e))))
+  (is (= '((1) (2) (3) (4) (5)) (pack '(1 2 3 4 5))))
+  (is (= '((9 9 9 9 9 9 9 9 9)) (pack '(9 9 9 9 9 9 9 9 9)))))
 
 (run-tests)
