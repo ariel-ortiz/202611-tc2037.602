@@ -45,12 +45,17 @@
 
 ; Problem 5
 
-(defn binary
+; Recursive solution
+(defn binary-aux
   [n]
   (if (zero? n)
     ()
     (cons (rem n 2)
-          (binary (quot n 2)))))
+          (binary-aux (quot n 2)))))
+
+(defn binary
+  [n]
+  (reverse (binary-aux n)))
 
 (binary 11)
 
@@ -73,5 +78,10 @@
          (insertion-sort '(4 3 6 8 3 0 9 1 7))))
   (is (= '(1 2 3 4 5 6) (insertion-sort '(1 2 3 4 5 6))))
   (is (= '(1 5 5 5 5 5 5) (insertion-sort '(5 5 5 1 5 5 5)))))
+
+(deftest test-binary
+  (is (= () (binary 0)))
+  (is (= '(1 1 1 1 0) (binary 30)))
+  (is (= '(1 0 1 1 0 0 0 0 0 1 0 0 0 0 1 1) (binary 45123))))
 
 (run-tests)
