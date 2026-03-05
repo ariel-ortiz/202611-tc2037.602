@@ -46,18 +46,27 @@
 ; Problem 5
 
 ; Recursive solution
-(defn binary-aux
-  [n]
-  (if (zero? n)
-    ()
-    (cons (rem n 2)
-          (binary-aux (quot n 2)))))
+;(defn binary-aux
+;  [n]
+;  (if (zero? n)
+;    ()
+;    (cons (rem n 2)
+;          (binary-aux (quot n 2)))))
+;
+;(defn binary
+;  [n]
+;  (reverse (binary-aux n)))
 
+; loop/recur solution
 (defn binary
   [n]
-  (reverse (binary-aux n)))
-
-(binary 11)
+  (loop [n n
+         result ()]
+    (if (zero? n)
+      result
+      (recur (quot n 2)
+             (cons (rem n 2)
+                   result)))))
 
 (deftest test-expand
   (is (= () (expand ())))
