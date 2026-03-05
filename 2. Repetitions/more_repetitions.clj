@@ -43,6 +43,17 @@
   [s]
   (reduce (fn [accum x] (insert x accum)) () s))
 
+; Problem 5
+
+(defn binary
+  [n]
+  (if (zero? n)
+    ()
+    (cons (rem n 2)
+          (binary (quot n 2)))))
+
+(binary 11)
+
 (deftest test-expand
   (is (= () (expand ())))
   (is (= '(a) (expand '(a))))
