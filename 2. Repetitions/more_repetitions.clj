@@ -58,15 +58,30 @@
 ;  (reverse (binary-aux n)))
 
 ; loop/recur solution
+;(defn binary
+;  [n]
+;  (loop [n n
+;         result ()]
+;    (if (zero? n)
+;      result
+;      (recur (quot n 2)
+;             (cons (rem n 2)
+;                   result)))))
+
 (defn binary
   [n]
-  (loop [n n
-         result ()]
-    (if (zero? n)
-      result
-      (recur (quot n 2)
-             (cons (rem n 2)
-                   result)))))
+  (second
+    (first
+      (drop-while
+        (fn [param]
+          (let [n (first param)]
+            (not= n 0)))
+        (iterate (fn [param]
+                   (let [n (first param)
+                         result (second param)]
+                     [(quot n 2)
+                      (cons (rem n 2) result)]))
+                 [n ()])))))
 
 (deftest test-expand
   (is (= () (expand ())))
