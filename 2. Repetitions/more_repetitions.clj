@@ -83,6 +83,27 @@
                       (cons (rem n 2) result)]))
                  [n ()])))))
 
+; Problem 6
+
+(defn prime-factors
+  [n]
+  (loop [n n
+         result []
+         divisor 2]
+    (cond
+      (= n 1)
+      (concat result ())
+
+      (zero? (rem n divisor))
+      (recur (quot n divisor)
+             (conj result divisor)
+             divisor)
+
+      :else
+      (recur n
+             result
+             (inc divisor)))))
+
 (deftest test-expand
   (is (= () (expand ())))
   (is (= '(a) (expand '(a))))
@@ -107,5 +128,12 @@
   (is (= () (binary 0)))
   (is (= '(1 1 1 1 0) (binary 30)))
   (is (= '(1 0 1 1 0 0 0 0 0 1 0 0 0 0 1 1) (binary 45123))))
+
+(deftest test-prime-factors
+  (is (= () (prime-factors 1)))
+  (is (= '(2 3) (prime-factors 6)))
+  (is (= '(2 2 2 2 2 3) (prime-factors 96)))
+  (is (= '(97) (prime-factors 97)))
+  (is (= '(2 3 3 37) (prime-factors 666))))
 
 (run-tests)
