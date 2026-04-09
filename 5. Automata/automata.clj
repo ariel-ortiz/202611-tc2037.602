@@ -5,6 +5,8 @@
                 accept-states
                 transitions])
 
+; Problem 1
+
 (defn accepts?
   [{:keys [initial-state accept-states transitions]} input]
   (loop [input          input
