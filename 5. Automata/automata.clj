@@ -35,4 +35,27 @@
   (is (not (accepts? dfa-1 "baa")))
   (is (not (accepts? dfa-1 "bbba"))))
 
+; Problem 2
+
+(def dfa-2 (->DFA :q0
+                  #{:q2}
+                  {:q0 {\0 :q1
+                        \1 :q3}
+                   :q1 {\0 :q1
+                        \1 :q2}
+                   :q2 {\0 :q1
+                        \1 :q2}
+                   :q3 {\0 :q3
+                        \1 :q3}}))
+
+(deftest test-problem2
+  (is (accepts? dfa-2 "01"))
+  (is (accepts? dfa-2 "0101"))
+  (is (accepts? dfa-2 "01111"))
+  (is (accepts? dfa-2 "000001"))
+  (is (not (accepts? dfa-2 "")))
+  (is (not (accepts? dfa-2 "00")))
+  (is (not (accepts? dfa-2 "1001011")))
+  (is (not (accepts? dfa-2 "1001010"))))
+
 (run-tests)
