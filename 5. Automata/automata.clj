@@ -58,4 +58,27 @@
   (is (not (accepts? dfa-2 "1001011")))
   (is (not (accepts? dfa-2 "1001010"))))
 
+; Problem 3
+
+(def dfa-3 (->DFA :q0
+                  #{:q3}
+                  {:q0 {\x :q0
+                        \y :q1}
+                   :q1 {\x :q0
+                        \y :q2}
+                   :q2 {\x :q0
+                        \y :q3}
+                   :q3 {\x :q3
+                        \y :q3}}))
+
+(deftest test-problem3
+  (is (accepts? dfa-3 "yyy"))
+  (is (accepts? dfa-3 "xyxyyyx"))
+  (is (accepts? dfa-3 "xxxxxyyyyy"))
+  (is (accepts? dfa-3 "yyyxxxxyyy"))
+  (is (not (accepts? dfa-3 "")))
+  (is (not (accepts? dfa-3 "xxx")))
+  (is (not (accepts? dfa-3 "yxxyxxy")))
+  (is (not (accepts? dfa-3 "xyxyyxyyx"))))
+
 (run-tests)
