@@ -7,7 +7,7 @@
 ; (spit "work_files/output.txt" "Hi!")
 
 (def my-regex #"(?xi)
-      ( -? \d+ [.] \d* (?: e -? \d+)? )   # Grupo 1: Float
+      ( -? \d+ [.] \d* (?: e -? \d+)? )   # Group 1: Float
     | ( \d+ )                             # Group 2: Integer
     | ( [a-z] \w* )                       # Group 3: Variable
     | ( // .* )                           # Group 4: Comment
