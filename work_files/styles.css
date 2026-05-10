@@ -1,0 +1,63 @@
+body {
+  background-color: AliceBlue;
+  color: MidnightBlue;
+  font-family: sans-serif;
+  margin: 30px;
+}
+
+table, th, td {
+  border: 1px solid CornflowerBlue;
+  border-collapse: collapse;
+  padding: 6px 20px;
+}
+
+h1 {
+  color: RoyalBlue;
+  padding: 6px 10px;
+  margin-top: 50px;
+}
+
+pre {
+  font-size: 160%;
+  margin: 20px;
+  border: 1px solid Black;
+  padding: 30px;
+  color: Black;
+  background-color: White;
+}
+
+.float {
+  color: Green;
+}
+
+.integer {
+  color: DarkOrange;
+}
+
+.variable {
+  color: DeepPink;
+}
+
+.comment {
+  color: LightSlateGray;
+  font-style: italic;
+}
+
+.assignment,
+.addition,
+.subtraction,
+.multiplication,
+.division,
+.power,
+.opening-parenthesis,
+.closing-parenthesis {
+  color: Blue;
+  font-weight: bold;
+}
+
+.invalid-character {
+  background-color: Red;
+  color: white;
+  padding: 3px 5px;
+  font-weight: bold;
+}
