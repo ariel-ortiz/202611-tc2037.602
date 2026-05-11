@@ -33,8 +33,8 @@
   (inc (count (take-while nil? (rest v)))))
 
 (defn lexical-analysis
-  [file-name]
-  (let [matches (re-seq my-regex (slurp file-name))]
+  [file-content]
+  (let [matches (re-seq my-regex file-content)]
     (remove
       #(= :spaces (% 1))
       (map (fn [match]
@@ -50,7 +50,7 @@
   (separator)
   (println (format "%-32sCategory" "Token"))
   (separator)
-  (doseq [token (lexical-analysis file-name)]
+  (doseq [token (lexical-analysis (slurp file-name))]
     (println (format "%-32s%s" (token 0) (symbol (token 1)))))
   (separator))
 
@@ -76,6 +76,6 @@
     (spit out-name
           (format html-template
                   file-content
-                  (apply str (htmlize (lexical-analysis in-name)))))))
+                  (apply str (htmlize (lexical-analysis file-content)))))))
 
 (text->html "work_files/input.txt" "work_files/result.html")
