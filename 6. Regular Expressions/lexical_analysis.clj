@@ -23,4 +23,35 @@
     | ( . )                               # Group 14: Invalid Character (has to be last group)
 ")
 
-(re-seq my-regex (slurp "work_files/input.txt"))
+(def categories [nil :float :integer :variable :comment :assignment
+                 :addition :subtraction :multiplication :division
+                 :power :opening-parenthesis :closing-parenthesis
+                 :spaces :invalid-character])
+
+(defn capturing-group-index
+  [v]
+  (inc (count (take-while nil? (rest v)))))
+
+(defn lexical-analysis
+  [file-name]
+  (let [matches (re-seq my-regex (slurp file-name))]
+    (remove
+      #(= :spaces (% 1))
+      (map (fn [match]
+             [(match 0) (categories (capturing-group-index match))])
+           matches))))
+
+(defn separator
+  []
+  (println (apply str (repeat 56 \=))))
+
+(defn print-table
+  [file-name]
+  (separator)
+  (println (format "%-32sCategory" "Token"))
+  (separator)
+  (doseq [token (lexical-analysis file-name)]
+    (println (format "%-32s%s" (token 0) (symbol (token 1)))))
+  (separator))
+
+(print-table "work_files/input.txt")
