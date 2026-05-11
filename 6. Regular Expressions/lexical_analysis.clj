@@ -54,4 +54,28 @@
     (println (format "%-32s%s" (token 0) (symbol (token 1)))))
   (separator))
 
-(print-table "work_files/input.txt")
+;;; (print-table "work_files/input.txt")
+
+(defn htmlize
+  [s]
+  (map (fn [[value category]]
+         (format "<tr>
+                    <td class=\"%s\">%s</td>
+                    <td>%s</td>
+                  </tr>"
+                 (symbol category)
+                 value
+                 (symbol category)))
+       s))
+
+(def html-template (slurp "work_files/template.html"))
+
+(defn text->html
+  [in-name out-name]
+  (let [file-content (slurp in-name)]
+    (spit out-name
+          (format html-template
+                  file-content
+                  (apply str (htmlize (lexical-analysis in-name)))))))
+
+(text->html "work_files/input.txt" "work_files/result.html")
