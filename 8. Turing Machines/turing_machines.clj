@@ -71,4 +71,28 @@
   (is (nil? (accepts tm-1 "aaaaaaa")))
   (is (nil? (accepts tm-1 "aaaaaaaaaaaaaaaaaaaaaaaaa"))))
 
+;;; Problem 2
+(def tm-2 (->TM :q0
+                #{:q2}
+                {:q0 {\0 [\0 :right :q1]
+                      \1 [\1 :right :q3]}
+                 :q1 {\1 [\1 :right :q1]
+                      \_ [\_ :left :q2]}
+                 :q3 {\0 [\0 :right :q3]
+                      \_ [\_ :left :q2]}}))
+
+(deftest test-problem2
+  (is (= "[0]"
+         (accepts tm-2 "0")))
+  (is (= "[1]"
+         (accepts tm-2 "1")))
+  (is (= "1[0]"
+         (accepts tm-2 "10")))
+  (is (= "0111111111[1]"
+         (accepts tm-2 "01111111111")))
+  (is (nil? (accepts tm-2 "")))
+  (is (nil? (accepts tm-2 "00")))
+  (is (nil? (accepts tm-2 "100000000001")))
+  (is (nil? (accepts tm-2 "10011010100101011"))))
+
 (run-tests)
