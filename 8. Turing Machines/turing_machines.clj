@@ -95,4 +95,38 @@
   (is (nil? (accepts tm-2 "100000000001")))
   (is (nil? (accepts tm-2 "10011010100101011"))))
 
+;;; Problem 3
+(def tm-3 (->TM :q0
+                #{:q3}
+                {:q0 {\0 [\0 :right :q0]
+                      \1 [\1 :right :q0]
+                      \_ [\_ :left :q1]}
+                 :q1 {\0 [\1 :right :q2]
+                      \1 [\0 :left :q1]
+                      \_ [\1 :right :q2]}
+                 :q2 {\0 [\0 :right :q2]
+                      \_ [\_ :left :q3]}}))
+
+(deftest test-problem3
+  (is (= "[1]"
+         (accepts tm-3 "0")))
+  (is (= "1[0]"
+         (accepts tm-3 "1")))
+  (is (= "1[1]"
+         (accepts tm-3 "10")))
+  (is (= "10[0]"
+         (accepts tm-3 "11")))
+  (is (= "100[1]"
+         (accepts tm-3 "1000")))
+  (is (= "10101011[0]"
+         (accepts tm-3 "101010101")))
+  (is (= "000000000[1]"
+         (accepts tm-3 "0000000000")))
+  (is (= "11111000[0]"
+         (accepts tm-3 "111101111")))
+  (is (= "101001101[1]"
+         (accepts tm-3 "1010011010")))
+  (is (= "1000000000000000[0]"
+         (accepts tm-3 "1111111111111111"))))
+
 (run-tests)
