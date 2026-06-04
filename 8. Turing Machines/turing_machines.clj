@@ -129,4 +129,38 @@
   (is (= "1000000000000000[0]"
          (accepts tm-3 "1111111111111111"))))
 
+;;; Problem 4
+(def tm-4 (->TM :q0
+                #{:q4}
+                {:q0 {\a [\a :right :q0]
+                      \$ [\$ :right :q0]
+                      \_ [\_ :left :q1]}
+                 :q1 {\a [\_ :left :q2]
+                      \$ [\_ :left :q4]}
+                 :q2 {\a [\a :left :q2]
+                      \$ [\$ :left :q2]
+                      \_ [\_ :right :q3]}
+                 :q3 {\a [\_ :right :q0]
+                      \$ [\_ :right :q5]}
+                 :q5 {\a [\_ :right :q5]
+                      \_ [\_ :left :q4]}}))
+
+(deftest test-problem4
+  (is (= "[_]"
+         (accepts tm-4 "$")))
+  (is (= "[_]"
+         (accepts tm-4 "a$a")))
+  (is (= "[a]"
+         (accepts tm-4 "aa$a")))
+  (is (= "aa[a]"
+         (accepts tm-4 "aaaaa$aa")))
+  (is (= "[_]"
+         (accepts tm-4 "aaaaa$aaaaaaaa")))
+  (is (= "aa[a]"
+         (accepts tm-4 "aaaaaaaa$aaaaa")))
+  (is (= "[_]"
+         (accepts tm-4 "$aaaaaaaaaaaaa")))
+  (is (= "aaaaaaaaaaaa[a]"
+         (accepts tm-4 "aaaaaaaaaaaaa$"))))
+
 (run-tests)
